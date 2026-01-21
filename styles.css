@@ -1,0 +1,273 @@
+
+
+/* ===================== RESET ===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  h1, h2, h3 {
+  text-align: center;
+}
+
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===================== BOOK ===================== */
+#book {
+  width: 100%;
+  max-width: 420px; /* perfect phone width */
+  min-height: 100vh;
+  background: #fff;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Front page image */
+/* ===================== COVER IMAGE CARD ===================== */
+.page1 .cover-card {
+  position: relative;
+}
+
+/* Image stays same */
+.page1 .cover-img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.page1 .cover-img {
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.page1:hover .cover-img {
+  transform: scale(1.05);
+  filter: brightness(1.05) contrast(1.05);
+}
+
+
+.page1 .cover-img:active {
+  transform: scale(0.97);
+}
+
+/* ===================== TEXT INSIDE IMAGE ===================== */
+/* Contact info inside cover image */
+.page1 .contact-info {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  text-align: right;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 6px 10px;
+  border-radius: 8px;
+  z-index: 3;
+}
+
+/* Contact link */
+.page1 .contact-link {
+  color: #25D366; /* WhatsApp green */
+  font-weight: 700;
+}
+
+/* Hover / tap feedback */
+.page1 .contact-link:hover {
+  text-decoration: underline;
+}
+
+.page1 .contact-link:active {
+  opacity: 0.8;
+}
+
+
+
+
+/* ===================== PAGES ===================== */
+.page {
+  padding: 16px;
+}
+
+/* ===================== COVER PAGE ===================== */
+.page1 {
+  position: relative;
+  pointer-events: auto;
+}
+
+.cover-img {
+  width: 100%;
+  height: 70vh;           /* mobile friendly */
+  object-fit: contain;    /* NO CROPPING */
+  background: #000;
+}
+
+.cover-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  color: #fff;
+}
+
+.cover-title {
+  font-family: "Permanent Marker", cursive;
+  font-size: 30px;
+  color: #ffcc80;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+  letter-spacing: 1px;
+}
+
+.cover-sub {
+   font-family: "Dancing Script", cursive;
+  font-size: 18px;
+  color: #fff3e0;
+}
+
+.contact-info {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  font-size: 12px;
+}
+
+/* ===================== PRODUCT PAGE ===================== */
+.product-page {
+  background: linear-gradient(135deg, #5406e6, #010544);
+  border-radius: 14px;
+  margin: 16px;
+  padding: 16px;
+}
+
+.product-page h2 {
+  font-family: "Permanent Marker", cursive;
+  font-size: 26px;
+  text-align: center;
+  color: #ffb74d;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.35);
+}
+
+/* ===================== GALLERY ===================== */
+.gallery {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+}
+
+.gallery::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  flex: 0 0 70%;
+  background: #fff;
+  border-radius: 14px;
+  padding: 10px;
+  text-align: center;
+  scroll-snap-align: start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Tap animation for mobile */
+.item:active {
+  transform: scale(0.97);
+}
+
+.item img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.item p {
+  font-family: "Dancing Script", cursive;
+  font-size: 15px;
+  margin-top: 6px;
+}
+
+/* ===================== DESCRIPTION ===================== */
+.desc {
+  text-align: center;
+  font-family: "Dancing Script", cursive;
+  font-size: 18px;
+  color: #fff3e0;
+  margin-top: 16px;
+  line-height: 1.8;
+  letter-spacing: 0.5px;
+}
+
+/* ===================== BUTTONS ===================== */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+}
+
+.controls button {
+  flex: 1;
+  margin: 0 6px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #ff9800;
+  color: #fff;
+  font-weight: 600;
+}
+.controls button:active {
+  transform: scale(0.95);
+}
+
+/* ===================== PAGE DIVIDER LINE ===================== */
+.page::after {
+  content: "";
+  display: block;
+  width: 70%;
+  height: 3px;
+  margin: 22px auto 10px;
+  border-radius: 10px;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    transparent,
+    #ff9800,
+    #ffcc80,
+    #ff9800,
+    transparent
+  );
+}
+
+/* ===================== PAGE END TEXT ===================== */
+.page::before {
+  content: "— swipe for more —";
+  display: block;
+  text-align: center;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 10px;
+  pointer-events: none;
+}
