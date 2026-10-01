@@ -80,7 +80,7 @@ h3 {
   height: 70vh;
   min-height: 400px;
 
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
 
   display: block;
