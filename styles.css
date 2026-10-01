@@ -1,5 +1,5 @@
 /* ===================================================== */
-/* ===================== RESET ========================= */
+/* ===================== RESET ========================== */
 /* ===================================================== */
 
 * {
@@ -20,6 +20,7 @@ body {
   width: 100%;
   min-height: 100vh;
   overflow-x: hidden;
+  color: #222;
 }
 
 h1,
@@ -30,7 +31,7 @@ h3 {
 
 
 /* ===================================================== */
-/* ===================== BOOK ========================== */
+/* ===================== BOOK =========================== */
 /* ===================================================== */
 
 #book {
@@ -45,7 +46,7 @@ h3 {
 
 
 /* ===================================================== */
-/* ===================== PAGES ========================= */
+/* ===================== PAGES ========================== */
 /* ===================================================== */
 
 .page {
@@ -55,7 +56,7 @@ h3 {
 
 
 /* ===================================================== */
-/* ===================== COVER PAGE ===================== */
+/* ===================== COVER PAGE ====================== */
 /* ===================================================== */
 
 .page1 {
@@ -71,7 +72,7 @@ h3 {
 
 
 /* ===================================================== */
-/* ===================== COVER IMAGE ==================== */
+/* ===================== COVER IMAGE ===================== */
 /* ===================================================== */
 
 .page1 .cover-img {
@@ -133,6 +134,22 @@ h3 {
 
 
 /* ===================================================== */
+/* ===================== COVER LOGO ===================== */
+/* ===================================================== */
+
+.cover-logo {
+  max-width: 280px;
+  width: 45%;
+  height: auto;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
+}
+
+
+/* ===================================================== */
 /* ===================== COVER TITLE ==================== */
 /* ===================================================== */
 
@@ -141,7 +158,7 @@ h3 {
 
   font-size: clamp(26px, 4vw, 48px);
 
-  font-weight: 800;
+  font-weight: 700;
 
   color: #ffcc80;
 
@@ -163,15 +180,15 @@ h3 {
 
   font-size: clamp(14px, 2vw, 22px);
 
-  font-weight: 600;
+  font-weight: 500;
 
   color: #fff3e0;
 
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
 
-  line-height: 1.4;
+  line-height: 1.5;
 
-  margin-top: 5px;
+  margin-top: 8px;
 }
 
 
@@ -183,7 +200,6 @@ h3 {
   position: absolute;
 
   bottom: 15px;
-
   right: 15px;
 
   text-align: right;
@@ -198,9 +214,9 @@ h3 {
 
   color: #ffffff;
 
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.55);
 
-  padding: 6px 10px;
+  padding: 7px 11px;
 
   border-radius: 8px;
 
@@ -268,7 +284,7 @@ h3 {
 
   font-size: clamp(24px, 3vw, 36px);
 
-  font-weight: 800;
+  font-weight: 700;
 
   text-align: center;
 
@@ -280,7 +296,7 @@ h3 {
 
   margin-bottom: 20px;
 
-  line-height: 1.25;
+  line-height: 1.3;
 
   text-shadow:
     2px 2px 8px rgba(0, 0, 0, 0.35);
@@ -376,15 +392,15 @@ h3 {
 
   font-size: 15px;
 
-  font-weight: 600;
+  font-weight: 500;
 
   color: #222222;
 
   margin-top: 10px;
 
-  line-height: 1.5;
+  line-height: 1.6;
 
-  letter-spacing: 0.2px;
+  letter-spacing: 0.1px;
 }
 
 
@@ -407,7 +423,7 @@ h3 {
 
   line-height: 1.8;
 
-  letter-spacing: 0.3px;
+  letter-spacing: 0.2px;
 
   max-width: 900px;
 
@@ -547,14 +563,16 @@ h3 {
   }
 
 
-  /* Cover */
+  /* COVER */
 
   .page1 .cover-img {
     height: 70vh;
   }
 
-
-  /* Cover title */
+  .cover-logo {
+    max-width: 250px;
+    width: 45%;
+  }
 
   .cover-title {
     font-size: 38px;
@@ -565,21 +583,21 @@ h3 {
   }
 
 
-  /* Product page */
+  /* PRODUCT PAGE */
 
   .product-page {
     padding: 25px;
   }
 
 
-  /* Product heading */
+  /* HEADING */
 
   .product-page h2 {
     font-size: 30px;
   }
 
 
-  /* Product cards */
+  /* PRODUCT CARDS */
 
   .item {
     flex: 0 0 250px;
@@ -587,6 +605,10 @@ h3 {
 
   .item img {
     height: 190px;
+  }
+
+  .item p {
+    font-size: 15px;
   }
 }
 
@@ -615,7 +637,7 @@ h3 {
   }
 
 
-  /* Cover */
+  /* COVER */
 
   .page1 .cover-img {
     height: 700px;
@@ -625,8 +647,10 @@ h3 {
     object-position: center;
   }
 
-
-  /* Cover title */
+  .cover-logo {
+    max-width: 320px;
+    width: 40%;
+  }
 
   .cover-title {
     font-size: 48px;
@@ -637,7 +661,7 @@ h3 {
   }
 
 
-  /* Product page */
+  /* PRODUCT PAGE */
 
   .product-page {
     margin: 25px auto;
@@ -646,7 +670,7 @@ h3 {
   }
 
 
-  /* Gallery */
+  /* GALLERY */
 
   .gallery {
     justify-content: center;
@@ -657,7 +681,7 @@ h3 {
   }
 
 
-  /* Product cards */
+  /* PRODUCT CARDS */
 
   .item {
     flex: 0 0 250px;
@@ -668,7 +692,7 @@ h3 {
   }
 
 
-  /* Description */
+  /* DESCRIPTION */
 
   .desc {
     max-width: 850px;
@@ -719,8 +743,13 @@ h3 {
     padding: 15px;
   }
 
+  .cover-logo {
+    max-width: 220px;
+    width: 55%;
+  }
 
-  /* Cover title */
+
+  /* COVER TITLE */
 
   .cover-title {
     font-size: 28px;
@@ -729,12 +758,12 @@ h3 {
   }
 
 
-  /* Cover subtitle */
+  /* COVER SUBTITLE */
 
   .cover-sub {
     font-size: 15px;
 
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
   }
 
 
@@ -770,14 +799,14 @@ h3 {
   }
 
 
-  /* Product heading */
+  /* PRODUCT HEADING */
 
   .product-page h2 {
     font-size: 22px;
 
     letter-spacing: 0.5px;
 
-    line-height: 1.3;
+    line-height: 1.35;
 
     margin-bottom: 12px;
   }
@@ -817,7 +846,7 @@ h3 {
   }
 
 
-  /* Product image */
+  /* PRODUCT IMAGE */
 
   .item img {
     height: 160px;
@@ -826,16 +855,16 @@ h3 {
   }
 
 
-  /* Product name */
+  /* PRODUCT TEXT */
 
   .item p {
     font-family: "Montserrat", sans-serif;
 
     font-size: 14px;
 
-    font-weight: 600;
+    font-weight: 500;
 
-    line-height: 1.5;
+    line-height: 1.6;
 
     margin-top: 8px;
   }
@@ -850,9 +879,9 @@ h3 {
 
     font-weight: 500;
 
-    line-height: 1.6;
+    line-height: 1.7;
 
-    letter-spacing: 0.2px;
+    letter-spacing: 0.1px;
 
     margin-top: 15px;
   }
@@ -893,7 +922,7 @@ h3 {
 
 
   /* ================================================= */
-  /* ================= DIVIDER ======================= */
+  /* ================= DIVIDER ======================== */
   /* ================================================= */
 
   .page::after {
@@ -920,6 +949,11 @@ h3 {
     height: 62vh;
   }
 
+  .cover-logo {
+    max-width: 190px;
+    width: 55%;
+  }
+
   .cover-title {
     font-size: 24px;
   }
@@ -927,7 +961,7 @@ h3 {
   .cover-sub {
     font-size: 13px;
 
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
   }
 
   .product-page {
@@ -950,9 +984,13 @@ h3 {
 
   .item p {
     font-size: 13px;
+
+    line-height: 1.55;
   }
 
   .desc {
     font-size: 13px;
+
+    line-height: 1.6;
   }
 }
