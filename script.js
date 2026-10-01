@@ -1,5 +1,3 @@
-
-```javascript
 /* =====================================================
    PAGE NAVIGATION
 ===================================================== */
@@ -23,6 +21,8 @@ const downloadBtn = document.getElementById("download-btn");
 ===================================================== */
 
 function showPage(num) {
+
+    // Make sure page number stays within range
     if (num < 0) {
         num = 0;
     }
@@ -33,52 +33,83 @@ function showPage(num) {
 
     currentPage = num;
 
+
+    // Show only the current page
     pages.forEach((page, index) => {
-        page.classList.toggle("active", index === currentPage);
+
+        page.classList.toggle(
+            "active",
+            index === currentPage
+        );
+
     });
 
-    // Update page number only if the element exists
+
+    // Update page number
     if (pageNumEl) {
         pageNumEl.textContent = currentPage + 1;
     }
 
+
+    // Update total pages
     if (pageCountEl) {
         pageCountEl.textContent = pages.length;
     }
 
-    // Update navigation buttons only if they exist
+
+    // Previous button
     if (prevBtn) {
         prevBtn.disabled = currentPage === 0;
     }
 
+
+    // Next button
     if (nextBtn) {
-        nextBtn.disabled = currentPage === pages.length - 1;
+        nextBtn.disabled =
+            currentPage === pages.length - 1;
     }
 
-    // Return to the top of the book after changing pages
+
+    // Scroll to the beginning of the book
     if (book) {
+
         book.scrollIntoView({
             behavior: "smooth",
             block: "start"
         });
+
     }
+
 }
 
 
 /* =====================================================
-   NEXT AND PREVIOUS PAGE
+   NEXT PAGE
 ===================================================== */
 
 function nextPage() {
+
     if (currentPage < pages.length - 1) {
+
         showPage(currentPage + 1);
+
     }
+
 }
 
+
+/* =====================================================
+   PREVIOUS PAGE
+===================================================== */
+
 function prevPage() {
+
     if (currentPage > 0) {
+
         showPage(currentPage - 1);
+
     }
+
 }
 
 
@@ -87,11 +118,21 @@ function prevPage() {
 ===================================================== */
 
 if (prevBtn) {
-    prevBtn.addEventListener("click", prevPage);
+
+    prevBtn.addEventListener(
+        "click",
+        prevPage
+    );
+
 }
 
 if (nextBtn) {
-    nextBtn.addEventListener("click", nextPage);
+
+    nextBtn.addEventListener(
+        "click",
+        nextPage
+    );
+
 }
 
 
@@ -101,9 +142,22 @@ if (nextBtn) {
 
 document.addEventListener("keydown", (event) => {
 
-    // Do not flip pages while typing in form fields
+    /*
+       Don't change pages while the user is typing
+       inside an input, textarea or select.
+    */
+
     if (
-        event.target.matches("input, textarea, select") ||
+        event.target.matches(
+            "input, textarea, select"
+        )
+    ) {
+        return;
+    }
+
+
+    // Don't interfere with browser shortcuts
+    if (
         event.altKey ||
         event.ctrlKey ||
         event.metaKey
@@ -111,12 +165,20 @@ document.addEventListener("keydown", (event) => {
         return;
     }
 
+
+    // Right arrow = next page
     if (event.key === "ArrowRight") {
+
         nextPage();
+
     }
 
+
+    // Left arrow = previous page
     if (event.key === "ArrowLeft") {
+
         prevPage();
+
     }
 
 });
@@ -131,73 +193,165 @@ let touchStartY = 0;
 
 let touchStartedInGallery = false;
 
-document.addEventListener("touchstart", (event) => {
 
-    if (event.touches.length !== 1) {
-        return;
-    }
+/* -----------------------------------------------------
+   TOUCH START
+----------------------------------------------------- */
 
-    touchStartX = event.touches[0].clientX;
-    touchStartY = event.touches[0].clientY;
+document.addEventListener(
+    "touchstart",
+    (event) => {
 
-    // Do not flip pages when the swipe begins inside a gallery
-    touchStartedInGallery =
-        event.target.closest(".gallery") !== null;
-
-}, { passive: true });
-
-
-document.addEventListener("touchend", (event) => {
-
-    if (event.changedTouches.length !== 1) {
-        return;
-    }
-
-    // Allow galleries to scroll independently
-    if (touchStartedInGallery) {
-        return;
-    }
-
-    const touchEndX = event.changedTouches[0].clientX;
-    const touchEndY = event.changedTouches[0].clientY;
-
-    const diffX = touchStartX - touchEndX;
-    const diffY = touchStartY - touchEndY;
-
-    // Flip only for a clear horizontal swipe
-    if (
-        Math.abs(diffX) > 60 &&
-        Math.abs(diffX) > Math.abs(diffY) * 1.3
-    ) {
-        if (diffX > 0) {
-            nextPage();
-        } else {
-            prevPage();
+        // Ignore multi-touch
+        if (event.touches.length !== 1) {
+            return;
         }
-    }
 
-}, { passive: true });
+
+        touchStartX =
+            event.touches[0].clientX;
+
+        touchStartY =
+            event.touches[0].clientY;
+
+
+        /*
+           Check whether the swipe started
+           inside a product gallery.
+        */
+
+        touchStartedInGallery =
+            event.target.closest(".gallery") !== null;
+
+    },
+    {
+        passive: true
+    }
+);
+
+
+/* -----------------------------------------------------
+   TOUCH END
+----------------------------------------------------- */
+
+document.addEventListener(
+    "touchend",
+    (event) => {
+
+        // Ignore multi-touch
+        if (event.changedTouches.length !== 1) {
+            return;
+        }
+
+
+        /*
+           If the swipe started inside a gallery,
+           DON'T change the catalogue page.
+
+           The gallery itself handles horizontal scrolling.
+        */
+
+        if (touchStartedInGallery) {
+
+            touchStartedInGallery = false;
+
+            return;
+
+        }
+
+
+        const touchEndX =
+            event.changedTouches[0].clientX;
+
+        const touchEndY =
+            event.changedTouches[0].clientY;
+
+
+        const diffX =
+            touchStartX - touchEndX;
+
+        const diffY =
+            touchStartY - touchEndY;
+
+
+        /*
+           Only change pages when the movement is
+           clearly horizontal.
+        */
+
+        if (
+            Math.abs(diffX) > 60 &&
+            Math.abs(diffX) >
+                Math.abs(diffY) * 1.3
+        ) {
+
+            // Swipe LEFT
+            if (diffX > 0) {
+
+                nextPage();
+
+            }
+
+            // Swipe RIGHT
+            else {
+
+                prevPage();
+
+            }
+
+        }
+
+
+        touchStartedInGallery = false;
+
+    },
+    {
+        passive: true
+    }
+);
 
 
 /* =====================================================
-   PRODUCT GALLERY TOUCH SUPPORT
+   PRODUCT GALLERY
 ===================================================== */
 
-document.querySelectorAll(".gallery").forEach((gallery) => {
+/*
+   We intentionally do NOT manually control
+   gallery.scrollLeft here.
 
-    // Native horizontal scrolling handles touch swipes.
-    // Prevent the page-flip handler from interfering.
-    gallery.addEventListener("touchstart", (event) => {
-        if (event.touches.length === 1) {
-            touchStartedInGallery = true;
-        }
-    }, { passive: true });
+   CSS handles native horizontal scrolling on mobile.
 
-    gallery.addEventListener("touchend", () => {
-        touchStartedInGallery = false;
-    }, { passive: true });
+   This gives smoother scrolling and prevents
+   the catalogue page from accidentally changing.
+*/
 
-});
+
+document.querySelectorAll(".gallery").forEach(
+    (gallery) => {
+
+        gallery.addEventListener(
+            "touchstart",
+            (event) => {
+
+                /*
+                   Stop the page-swipe logic from
+                   treating this as a page swipe.
+                */
+
+                if (event.touches.length === 1) {
+
+                    touchStartedInGallery = true;
+
+                }
+
+            },
+            {
+                passive: true
+            }
+        );
+
+    }
+);
 
 
 /* =====================================================
@@ -206,76 +360,182 @@ document.querySelectorAll(".gallery").forEach((gallery) => {
 
 if (downloadBtn) {
 
-    downloadBtn.addEventListener("click", () => {
+    downloadBtn.addEventListener(
+        "click",
+        () => {
 
-        if (typeof html2pdf === "undefined") {
-            alert("PDF library could not load. Please check your internet connection.");
-            return;
-        }
 
-        const clone = document.createElement("div");
+            /* -----------------------------------------
+               Check PDF library
+            ----------------------------------------- */
 
-        clone.style.width = "100%";
-        clone.style.background = "#ffffff";
-        clone.style.padding = "16px";
+            if (typeof html2pdf === "undefined") {
 
-        pages.forEach((page) => {
+                alert(
+                    "PDF library could not load. Please check your internet connection."
+                );
 
-            const copy = page.cloneNode(true);
+                return;
 
-            copy.classList.add("pdf-page");
-            copy.classList.add("active");
+            }
 
-            copy.style.display = "block";
-            copy.style.width = "100%";
-            copy.style.height = "auto";
-            copy.style.position = "relative";
-            copy.style.overflow = "visible";
-            copy.style.pageBreakAfter = "always";
 
-            clone.appendChild(copy);
+            /* -----------------------------------------
+               Create temporary PDF container
+            ----------------------------------------- */
 
-        });
+            const clone =
+                document.createElement("div");
 
-        document.body.appendChild(clone);
 
-        html2pdf()
-            .set({
-                margin: 0.2,
-                filename: "MechPulse-Catalogue.pdf",
+            clone.style.width = "100%";
 
-                image: {
-                    type: "jpeg",
-                    quality: 0.95
-                },
+            clone.style.background =
+                "#ffffff";
 
-                html2canvas: {
-                    scale: 2,
-                    useCORS: true
-                },
+            clone.style.padding =
+                "16px";
 
-                jsPDF: {
-                    unit: "in",
-                    format: "a4",
-                    orientation: "portrait"
-                },
 
-                pagebreak: {
-                    mode: ["css", "legacy"]
-                }
-            })
-            .from(clone)
-            .save()
-            .then(() => {
-                clone.remove();
-            })
-            .catch((error) => {
-                console.error("PDF export failed:", error);
-                clone.remove();
-                alert("Unable to create the PDF. Please try again.");
+            /* -----------------------------------------
+               Copy every page
+            ----------------------------------------- */
+
+            pages.forEach((page) => {
+
+                const copy =
+                    page.cloneNode(true);
+
+
+                /*
+                   Make every page visible
+                   inside the PDF.
+                */
+
+                copy.classList.add("pdf-page");
+
+                copy.classList.add("active");
+
+
+                copy.style.display =
+                    "block";
+
+                copy.style.width =
+                    "100%";
+
+                copy.style.height =
+                    "auto";
+
+                copy.style.position =
+                    "relative";
+
+                copy.style.overflow =
+                    "visible";
+
+                copy.style.pageBreakAfter =
+                    "always";
+
+
+                clone.appendChild(copy);
+
             });
 
-    });
+
+            /* -----------------------------------------
+               Add temporary container to document
+            ----------------------------------------- */
+
+            document.body.appendChild(clone);
+
+
+            /* -----------------------------------------
+               Generate PDF
+            ----------------------------------------- */
+
+            html2pdf()
+
+                .set({
+
+                    margin: 0.2,
+
+                    filename:
+                        "MACHPULSE-Catalogue.pdf",
+
+
+                    image: {
+
+                        type: "jpeg",
+
+                        quality: 0.95
+
+                    },
+
+
+                    html2canvas: {
+
+                        scale: 2,
+
+                        useCORS: true
+
+                    },
+
+
+                    jsPDF: {
+
+                        unit: "in",
+
+                        format: "a4",
+
+                        orientation: "portrait"
+
+                    },
+
+
+                    pagebreak: {
+
+                        mode: [
+                            "css",
+                            "legacy"
+                        ]
+
+                    }
+
+                })
+
+
+                .from(clone)
+
+
+                .save()
+
+
+                .then(() => {
+
+                    // Remove temporary PDF content
+                    clone.remove();
+
+                })
+
+
+                .catch((error) => {
+
+                    console.error(
+                        "PDF export failed:",
+                        error
+                    );
+
+
+                    clone.remove();
+
+
+                    alert(
+                        "Unable to create the PDF. Please try again."
+                    );
+
+                });
+
+        }
+    );
 
 }
 
@@ -285,4 +545,3 @@ if (downloadBtn) {
 ===================================================== */
 
 showPage(0);
-```
